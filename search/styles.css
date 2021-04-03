@@ -1,0 +1,72 @@
+.appbar {
+    color: #d93025;
+    font-size: 20px;
+    margin: 25px 35px;
+}
+
+.gb_Jf>.gb_i {
+    height: 60px;
+    line-height: 58px;
+    vertical-align: middle;
+}
+
+.gb_rc .gb_qc {
+    position: relative;
+    top: 2px;
+}
+
+.gb_qc {
+    display: inline-block;
+    line-height: 0;
+    outline: none;
+    vertical-align: middle;
+}
+
+body {
+    font-family: arial, sans-serif;
+}
+
+input[type="text" i] {
+    padding: 1px 2px;
+}
+
+input {
+    -webkit-writing-mode: horizontal-tb;
+    text-rendering: auto;
+    color: -internal-light-dark(black, white);
+    letter-spacing: normal;
+    word-spacing: normal;
+    text-transform: none;
+    text-indent: 0px;
+    text-shadow: none;
+    display: inline-block;
+    text-align: start;
+    appearance: auto;
+    background-color: -internal-light-dark(rgb(255, 255, 255), rgb(59, 59, 59));
+    -webkit-rtl-ordering: logical;
+    cursor: text;
+    margin: 0em;
+    font: 400 13.3333px Arial;
+    padding: 1px 2px;
+    border-width: 2px;
+    border-style: inset;
+    border-color: -internal-light-dark(rgb(118, 118, 118), rgb(133, 133, 133));
+    border-image: initial;
+}
+
+form {
+    display: block;
+    margin-top: 0em;
+}
+
+.main2 {
+    overflow-x: left;
+    text-align: left;
+}
+
+.main2 {
+    box-sizing: border-box;
+    max-width: 750px;
+    margin: left;
+    padding: 0 1.25rem;
+}
