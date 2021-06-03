@@ -1,0 +1,27 @@
+{% extends "auctions/layout.html" %} {% block body %}
+<h2>New Listing</h2>
+{% if user.is_authenticated %} {% if messages %}
+<div class="alert alert-dark" role="alert">
+    <ul class="messages">
+        {% for message in messages %}
+        <li {% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
+        {% endfor %}
+    </ul>
+</div>
+{% endif %} {% endif%}
+
+<form action="{% url 'newlisting' %}" method="post">
+    {% csrf_token %}
+    <!-- <select name="owner">
+        {% for user in users %}
+        <option value="{{user.id}}">{{user.username}}</option>
+        {% endfor %}
+    </select>  -->
+    <div class="form-group">
+        {{form.as_p}}
+    </div>
+
+    <input class="btn btn-primary" type="submit">
+</form>
+
+{% endblock %}

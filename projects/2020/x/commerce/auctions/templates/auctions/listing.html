@@ -1,0 +1,116 @@
+{% extends "auctions/layout.html" %} {% block body %}
+<h2 style="text-align:center">{{listing.item_title}}</h2>
+<!-- watchlist buttons -->
+<br> {% if user.is_authenticated %} {% if listing.active == True %} {%if listing.is_watcher == True%}
+<form action="{% url 'remove' listing.id %}" method="post">
+    {% csrf_token %}
+    <input class="btn btn-secondary btn-sm" type="submit" value="Remove from Watchlist">
+</form>
+{% else %}
+<form action="{% url 'add' listing.id %}" method="post">
+    {% csrf_token %}
+    <input class="btn btn-success btn-sm" type="submit" value="Add to Watchlist">
+</form>
+{% endif %} {% endif %} {% endif%}
+<!-- listing intem -->
+<div class="media">
+    {% if listing.image %}
+    <img class="align-self-start mr-3" src="{{listing.image.url}}" alt="{{listing.item_title}}">{% endif%}
+    <div class="media-body">
+        {% if listing.active == True %}
+        <p style="color:blue; font-weight: bold;">Active</p>
+        {% else %}
+        <p style="color:gray; font-weight: bold;">Inactive</p>
+        {% endif %}
+        <p style="font-size:larger">{{ listing.description}}</p>
+        <!-- bought warning -->
+        <br> {% if user.is_authenticated %} {% if listing.is_buyer == True%}
+        <div class="alert alert-secondary" role="alert">
+            <h5 style="text-align: center;"> You won this auction, congratulations!</h5>
+        </div>
+        {% endif %} {% endif %}
+
+        <!-- listing info-->
+        <b><p>Starting Price: </b>${{listing.starting_bid}}</p>
+        {% if listing.final_bid != 0.00 %}
+        <b><p>Current Price: </b>${{listing.final_bid}}</p>
+        {% else %}
+        <p> <b>Current Price: </b>${{listing.starting_bid}}</p>
+        {% endif %}
+        <!-- close auction button -->
+        {% if user.is_authenticated %} {% if listing.active == True %} {% if listing.is_owner == True %}
+        <form action="{% url 'closeBid' listing.id %}" method="post">
+            {% csrf_token %}
+            <input class="btn btn-warning btn-sm" type="submit" value="Close Bid">
+        </form>
+        <br> {% endif %}<br>
+
+        <!-- Bidding messages -->
+        {% if messages %}
+        <div class="alert alert-warning" role="alert">
+            <ul class="messages">
+                {% for message in messages %}
+                <li {% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+        <!-- Bidding form -->
+        <form action="{% url 'bid' listing.id %}" method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                {{form.as_p}}
+            </div>
+            <input class="btn btn-primary btn-sm" type="submit" value="Bid">
+        </form>
+        {% endif %}{% endif %}
+        <hr>
+        <p style="font-size:small">Created {{listing.timestanp}}</p>
+    </div>
+</div>
+
+<h3> Comments:</h3>
+<!-- commenting form -->
+{% if listing.active == True %}
+<div>
+    {% if user.is_authenticated %}
+    <form action="{% url 'comment' listing.id %}" method="post">
+        {% csrf_token %}
+        <div class="form-group">
+            {{form2.as_p}}
+        </div>
+        <input class="btn btn-primary btn-sm" type="submit">
+    </form>
+    {% endif %}
+</div>
+{% endif %}
+<!-- comments -->
+<br> {% if remarks %}
+<div align="left" style="width:50%">
+    <!-- </div>class="container"> -->
+    <!-- <div class="row">
+        <div div class="col-9"> -->
+
+
+    <table class="table table-md">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">Coments</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for remark in remarks %}
+
+            <tr scope="row">
+                <td><b>{{remark.commenter}}:</b></td>
+                <td> {{remark.comment}}</td>
+            </tr>
+
+            {% endfor %}</tbody>
+    </table>
+    {% endif %}
+</div>
+<!-- </div>
+</div> -->
+{% endblock %}

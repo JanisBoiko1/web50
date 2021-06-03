@@ -1,0 +1,17 @@
+{% extends "auctions/layout.html" %} {% block body %}
+<h2> Bid on intem: {{listing.item_title}}</h2>
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <li {% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+<form action="{% url 'bid' listing.id %}" method="post">
+    {% csrf_token %}
+    <div class="form-group">
+        {{form.as_p}}
+    </div>
+    <input class="btn btn-primary" type="submit">
+</form>
+{% endblock %}

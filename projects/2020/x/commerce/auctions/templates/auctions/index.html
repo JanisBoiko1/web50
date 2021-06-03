@@ -1,0 +1,16 @@
+{% extends "auctions/layout.html" %} {% block body %}
+<h2>Active Listings</h2>
+
+<ul class="list-unstyled"> {% for listing in listings%} {% if listing.active == True %}
+    <br>
+    <li class="media">
+        {% if listing.image %}
+        <img class="mr-3" alt="{{listing.item_title}}" src="{{listing.image.url}}" data-atf="1"> {% endif %}
+        <div class="media-body">
+            <b><a class="mt-0 mb-1" href="{% url 'listingitem' listing.id %}">{{listing.item_title}}</a></b>
+            <b><p>Price: $</b>{{listing.starting_bid}}</p>
+            <p>{{ listing.description}}</p>
+            <p>Created {{listing.timestanp}}</p>
+        </div>
+    </li>
+    <hr> {% endif%} {% endfor %} </ul>{% endblock %}
