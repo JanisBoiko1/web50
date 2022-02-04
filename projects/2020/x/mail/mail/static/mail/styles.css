@@ -1,0 +1,53 @@
+textarea {
+    min-height: 400px;
+}
+
+
+/* emails unread */
+
+#false-email-div {
+    padding: 2px;
+    border-style: solid;
+    border-color: #384c74;
+    border-width: 1px 3px 1px 3px;
+    font-size: smaller;
+}
+
+
+/* emails read */
+
+#true-email-div {
+    padding: 2px;
+    border-style: solid;
+    border-color: #384c74;
+    border-width: 1px 3px 1px 3px;
+    font-size: smaller;
+    background-color: #d9e2ef;
+}
+
+
+/* sender and recievers */
+
+#email-sender {
+    font-weight: bold;
+}
+
+
+/* timestamps */
+
+#email-timestamp {
+    color: #506690;
+}
+
+
+/* Open email function */
+
+#email-info {
+    margin: 1px;
+    padding: 1px;
+}
+
+p {
+    margin: 0px;
+    padding: 0px;
+}
