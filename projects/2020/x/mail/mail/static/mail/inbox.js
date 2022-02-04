@@ -193,6 +193,8 @@ function openEmail(id, mailbox) {
 
 
         });
+
+    // set email.read to true
     fetch(`/emails/${id}`, {
         method: 'PUT',
         body: JSON.stringify({
@@ -205,6 +207,7 @@ function openEmail(id, mailbox) {
 //archive email
 function archive(id) {
 
+    // set email.archived to true
     fetch(`/emails/${id}`, {
         method: 'PUT',
         body: JSON.stringify({
@@ -219,6 +222,7 @@ function archive(id) {
 //unarchive email
 function unarchive(id) {
 
+    // set email.archived to false
     fetch(`/emails/${id}`, {
         method: 'PUT',
         body: JSON.stringify({
