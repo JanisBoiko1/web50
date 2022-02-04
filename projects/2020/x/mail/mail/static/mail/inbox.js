@@ -5,15 +5,13 @@ document.addEventListener('DOMContentLoaded', function() {
     document.querySelector('#archived').addEventListener('click', () => load_mailbox('archive'));
     document.querySelector('#compose').addEventListener('click', () => compose_email(0));
 
+    //sending e-mails
     document.querySelector('form').onsubmit = function() {
             const recipients = document.querySelector('#compose-recipients').value
             const subject = document.querySelector('#compose-subject').value
             const body = document.querySelector('#compose-body').value
 
-            //console.log(recipients)
-            //console.log(subject)
-            //console.log(body)
-
+            //updating JSON with values from form
             fetch('/emails', {
                     method: 'POST',
                     body: JSON.stringify({
@@ -27,6 +25,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     // Print result
                     console.log(result)
                 })
+                //loading sent mailbox
             load_mailbox('sent')
             return false
 
@@ -36,9 +35,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
 });
 
-
+//loading compose email form
 function compose_email(id) {
-    console.log(id)
 
     // Show compose view and hide other views
     document.querySelector('#emails-view').style.display = 'none';
@@ -46,19 +44,20 @@ function compose_email(id) {
     document.querySelector('#email-open').style.display = 'none';
 
     if (id === 0) {
-        // Clear out composition fields
+        // Clear out composition fields if new email
         document.querySelector('#compose-subject').value = '';
         document.querySelector('#compose-body').value = '';
         document.querySelector('#compose-recipients').value = '';
     } else {
-
+        //fetch email to be replied
         fetch(`/emails/${id}`)
             .then(response => response.json())
             .then(email => {
                 // Print email
                 console.log(email);
+
+                //pre-fill subject, body and recipient lines
                 document.querySelector('#compose-subject').value = `Re: ${email.subject}`
-                    //"On Jan 1 2020, 12:00 AM foo@example.com wrote:"                
                 document.querySelector('#compose-body').value = `On ${email.timestamp} ${email.sender} wrote: ${email.body}.`
                 document.querySelector('#compose-recipients').value = email.sender;
 
@@ -68,46 +67,40 @@ function compose_email(id) {
 
 }
 
-// The load_mailbox function also takes an argument, 
-// which will be the name of the mailbox that the user is trying to view. 
+
 function load_mailbox(mailbox) {
 
     // Show the mailbox and hide other views
     document.querySelector('#emails-view').style.display = 'block';
     document.querySelector('#compose-view').style.display = 'none';
     document.querySelector('#email-open').style.display = 'none';
-    //console.log('you are in: ' + mailbox)
 
+    //select part of the HTML were mailboxes will be shown
     const div = document.querySelector('#emails-view')
-        //console.log(div)
     let read = false
 
     // Show the mailbox name
     document.querySelector('#emails-view').innerHTML = `<h3>${mailbox.charAt(0).toUpperCase() + mailbox.slice(1)}</h3>`;
 
+    //fetch emails from mailbox
     fetch(`/emails/${mailbox}`)
         .then(response => response.json())
         .then(emails => {
             // Print emails
             console.log(emails);
 
-            // ... do something else with emails ...
+            //define if email was or wasn't read
             for (let i = 0; i < emails.length; i++) {
                 let email = emails[i]
                 if (email.read == true) {
-                    console.log("it was read")
                     read = true
                 } else {
                     read = false
                 }
 
-                // Each email should then be rendered in its own box 
-                // (e.g. as a <div> with a border) that displays who the
-                // email is from, what the subject line is, and the 
-                // timestamp of the email.
-
+                //render each email in a different way according to mailbox
                 if (mailbox == "inbox") {
-                    //console.log("inbox")
+
                     div.innerHTML += `<div class="container" onclick="openEmail(${email.id}, ${mailbox})"> 
                     <div class="row" id="${read}-email-div">
                     <div class="col" id="email-sender">${email.sender}</div>
@@ -116,7 +109,7 @@ function load_mailbox(mailbox) {
                     </div>
                     </div>`
                 } else if (mailbox == "sent") {
-                    //console.log("sent")
+
                     div.innerHTML += `<div class="container" onclick="openEmail(${email.id}, ${mailbox})"> 
                     <div class="row" id="${read}-email-div">
                     <div class="col" id="email-sender">${email.recipients}</div>
@@ -125,7 +118,7 @@ function load_mailbox(mailbox) {
                     </div>
                     </div>`
                 } else if (mailbox == "archive") {
-                    //console.log("archived")
+
                     div.innerHTML += `<div class="container" onclick="openEmail(${email.id}, ${mailbox})"> 
                     <div class="row" id="${read}-email-div">
                     <div class="col" id="email-sender">${email.sender}</div>
@@ -142,26 +135,21 @@ function load_mailbox(mailbox) {
 }
 
 function openEmail(id, mailbox) {
+    // Show the email-open and hide other views
     document.querySelector('#emails-view').style.display = 'none';
     document.querySelector('#compose-view').style.display = 'none';
     document.querySelector('#email-open').style.display = 'block';
-    //console.log(id)
-    let read = true
-    let arr = []
+
     const emailDiv = document.querySelector('#email-open')
-        //console.log(emailDiv)
 
     fetch(`/emails/${id}`)
         .then(response => response.json())
         .then(email => {
             // Print email
             console.log(email);
-            for (let i = 0; i < email.recipients.length; i++) {
-                arr.push(email.recipients[i])
-                    //console.log(arr)
-            }
 
-            // Your application should show the email’s sender, recipients, subject, timestamp, and body.
+            // Show the email’s sender, recipients, subject, timestamp, body and buttons
+            // Buttons change according to mailbox
             if (mailbox.textContent == "Inbox") {
 
                 emailDiv.innerHTML = `<hr>
@@ -214,8 +202,9 @@ function openEmail(id, mailbox) {
 
 }
 
+//archive email
 function archive(id) {
-    console.log("archive email " + id)
+
     fetch(`/emails/${id}`, {
         method: 'PUT',
         body: JSON.stringify({
@@ -223,18 +212,20 @@ function archive(id) {
         })
     })
 
-    //localStorage.clear()
+    //load inbox
     load_mailbox('inbox')
 }
 
+//unarchive email
 function unarchive(id) {
-    console.log("unarchive email " + id)
+
     fetch(`/emails/${id}`, {
-            method: 'PUT',
-            body: JSON.stringify({
-                archived: false
-            })
+        method: 'PUT',
+        body: JSON.stringify({
+            archived: false
         })
-        //load_mailbox('inbox')
+    })
+
+    //load inbox
     load_mailbox('inbox')
 }
