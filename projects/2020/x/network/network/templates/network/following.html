@@ -1,0 +1,187 @@
+{% extends "network/layout.html" %} {% block body %}
+<div id="following-posts-el" class="container-xl"></div>
+<nav aria-label="Page navigation example">
+    <ul id="nav-pages" class="pagination justify-content-center">
+
+    </ul>
+</nav>
+
+<script>
+    const navPages = document.querySelector('#nav-pages')
+    const followingPostsEl = document.querySelector('#following-posts-el')
+    document.addEventListener('DOMContentLoaded', function() {
+
+        //console.log(navPages)
+        console.log("following")
+
+        let page = "following"
+
+        fetch(`/posts/${page}/0`)
+            .then(response => response.json())
+            .then(posts => {
+                // Print posts
+
+                let nemberOfPosts = parseInt(posts.length)
+                let numberOfPages = Math.ceil(nemberOfPosts / 10)
+                console.log(nemberOfPosts)
+                console.log(numberOfPages)
+
+                console.log(posts);
+                if (nemberOfPosts < 10) {
+                    for (let i = 0; i < posts.length; i++) {
+                        let post = posts[i]
+                        console.log(post.user)
+
+                        followingPostsEl.innerHTML += `<div style="margin-top: 5px; margin-bottom: 5px; padding: 25px; border-radius: 5px; border-color: lightgray; border-style: solid; border-width: 0.5px;" class="container-xl">
+                                          <h4><a href="profile/${post.user}">${post.poster}</a></h4>
+                                        <p>${post.content}</p>
+                                      <p class="p-gray">${post.timestamp}</p>
+                                      <p class="p-gray"><a id="heart${post.id}" style="color: red;" onclick="like(${post.id})">&#10084</a><small id="likesnumber${post.id}"> ${post.likes}</small></p>
+                                  <p class="p-gray">comment</p>
+                                </div>`
+                    }
+                } else {
+                    for (let i = 0; i < 10; i++) {
+                        let post = posts[i]
+                        console.log(post.user)
+
+                        followingPostsEl.innerHTML += `<div style="margin-top: 5px; margin-bottom: 5px; padding: 25px; border-radius: 5px; border-color: lightgray; border-style: solid; border-width: 0.5px;" class="container-xl">
+                                          <h4><a href="profile/${post.user}">${post.poster}</a></h4>
+                                        <p>${post.content}</p>
+                                      <p class="p-gray">${post.timestamp}</p>
+                                      <p class="p-gray"><a id="heart${post.id}" style="color: red;" onclick="like(${post.id})">&#10084</a><small id="likesnumber${post.id}"> ${post.likes}</small></p>
+                                  <p class="p-gray">comment</p>
+                                </div>`
+                    }
+                }
+                navPages.innerHTML += `<li class="page-item disabled">
+                    <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a></li>`
+                for (let i = 1; i <= numberOfPages; i++) {
+                    navPages.innerHTML += `
+                        <li class="page-item"><a class="page-link" onclick="showNext10(${i})">${i}</a></li>                            
+                        `
+                }
+                navPages.innerHTML += `<li class="page-item">
+                    <a class="page-link" onclick="showNext10(2)">Next</a></li>`
+            });
+    })
+
+    function showNext10(x) {
+        console.log(x)
+        let page = "following"
+        let numberOfPages = 0
+        let y = 0
+        let z = 10
+        if (x === 1) {
+            y = 0
+            z = x * 10
+
+        } else {
+            y = (x * 10) - 10
+            z = y + 10
+
+        }
+        followingPostsEl.innerHTML = ""
+        fetch(`/posts/${page}/0`)
+            .then(response => response.json())
+            .then(posts => {
+                // Print posts
+                console.log(posts);
+                let nemberOfPosts = parseInt(posts.length)
+                let numberOfPages = Math.ceil(nemberOfPosts / 10)
+
+                if (z > nemberOfPosts) {
+                    console.log("z menor que numero de posts")
+                    for (let i = y; i < nemberOfPosts; i++) {
+                        let post = posts[i]
+
+                        followingPostsEl.innerHTML += `<div style="margin-top: 5px; margin-bottom: 5px; padding: 25px; border-radius: 5px; border-color: lightgray; border-style: solid; border-width: 0.5px;" class="container-xl">
+                            <h4><a href="profile/${post.user}">${post.poster}</a></h4>
+                          <p>${post.content}</p>
+                        <p class="p-gray">${post.timestamp}</p>
+                        <p class="p-gray"><a id="heart${post.id}" style="color: red;" onclick="like(${post.id})">&#10084</a><small id="likesnumber${post.id}"> ${post.likes}</small></p>
+                    <p class="p-gray">comment</p>
+                  </div>`
+                    }
+                } else {
+
+                    for (let i = y; i < z; i++) {
+                        let post = posts[i]
+
+                        followingPostsEl.innerHTML += `<div style="margin-top: 5px; margin-bottom: 5px; padding: 25px; border-radius: 5px; border-color: lightgray; border-style: solid; border-width: 0.5px;" class="container-xl">
+                            <h4><a href="profile/${post.user}">${post.poster}</a></h4>
+                          <p>${post.content}</p>
+                        <p class="p-gray">${post.timestamp}</p>
+                        <p class="p-gray"><a id="heart${post.id}" style="color: red;" onclick="like(${post.id})">&#10084</a><small id="likesnumber${post.id}"> ${post.likes}</small></p>
+                    <p class="p-gray">comment</p>
+                  </div>`
+                    }
+
+                }
+                if (x > 1) {
+                    navPages.innerHTML = `<li class="page-item">
+                        <a class="page-link" onclick="showNext10(${x-1})">Previous</a></li>`
+                    console.log("we have " + numberOfPages + "pages")
+                    for (let i = 1; i <= numberOfPages; i++) {
+                        console.log("this is" + i + "i")
+
+                        navPages.innerHTML += `
+                                <li class="page-item"><a class="page-link" onclick="showNext10(${i})">${i}</a></li>`
+                    }
+                    if (x == numberOfPages) {
+                        navPages.innerHTML += `<li class="page-item disabled">
+                    <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Next</a></li>`
+                    } else {
+                        navPages.innerHTML += `<li class="page-item">
+                    <a class="page-link" onclick="showNext10(${x+1})">Next</a></li>`
+                    }
+
+                } else {
+                    navPages.innerHTML = `<li class="page-item disabled">
+                        <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a></li>`
+                    for (let i = 1; i <= numberOfPages; i++) {
+                        navPages.innerHTML += `
+                            <li class="page-item"><a class="page-link" onclick="showNext10(${i})">${i}</a></li>                            
+                            `
+                    }
+                    navPages.innerHTML += `<li class="page-item">
+                        <a class="page-link" onclick="showNext10(2)">Next</a></li>`
+                }
+            })
+    }
+
+
+    function like(id) {
+        let heart = document.querySelector(`#heart${id}`)
+        let number = parseInt(document.querySelector(`#likesnumber${id}`).textContent)
+        if (heart.style.color == "red") {
+            console.log(id)
+            fetch(`/posts/${id}`, {
+                method: 'PUT',
+                body: JSON.stringify({
+                    likes: 1
+                })
+            })
+            heart.style.color = "black";
+            number += 1
+            document.querySelector(`#likesnumber${id}`).textContent = " " + number
+
+        } else {
+
+            console.log(id)
+            fetch(`/posts/${id}`, {
+                method: 'PUT',
+                body: JSON.stringify({
+                    likes: -1
+                })
+            })
+            heart.style.color = "red";
+            number -= 1
+            document.querySelector(`#likesnumber${id}`).textContent = " " + number
+
+        }
+
+    }
+</script>
+
+{% endblock %}

@@ -1,0 +1,22 @@
+p {
+    padding: 0px;
+    margin: 0px;
+}
+
+.p-gray {
+    color: gray;
+}
+
+#post-div {
+    padding: 20px;
+}
+
+#send-div {
+    padding: 25px;
+    margin: 5px;
+    border-radius: 5px;
+}
+
+#post {
+    margin-top: 5px;
+}
