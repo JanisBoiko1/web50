@@ -1,0 +1,123 @@
+/* https://www.youtube.com/watch?v=PwWHL3RyQgk */
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+#picture {
+    max-width: 25%;
+    max-height: 25%;
+}
+
+nav {
+    background-color: black;
+    margin: 0%;
+    padding: 1.5% 0%;
+    font-weight: bold;
+    color: #fff;
+    text-decoration: none;
+    display: flex;
+    justify-content: space-between;
+}
+
+.nav_links {
+    list-style-type: none;
+}
+
+.nav_links li {
+    display: inline-block;
+}
+
+.nav_links a {
+    transition: all 0.3s ease 0s;
+}
+
+.faixa-amarela {
+    background-color: #F29F05;
+    color: #F29F05;
+    font-size: 0.3ch;
+    width: 100;
+    padding: 0px;
+}
+
+.comprar-btn {
+    background: #0066A2;
+    color: white;
+    border-style: outset;
+    border-color: #0066A2;
+    height: 50px;
+    width: 100px;
+    font: bold 15px arial, sans-serif;
+    text-shadow: none;
+}
+
+
+/* https://www.youtube.com/watch?v=YOb67OKw62s */
+
+.container {
+    max-width: 1170px;
+    margin: auto;
+}
+
+.footer-col {
+    width: 25%;
+    padding: 0 15px;
+}
+
+.row {
+    display: flex;
+    flex-wrap: wrpa;
+}
+
+
+/* .footer-col h4::before {
+    content: '';
+    position: absolute;
+    Left: 0;
+    bottom: -10px;
+    height: 2px;
+    background-color: #8C5C03;
+    box-sizing: border-box;
+    width: 50px;
+} */
+
+.footer-col ul li:not(:last-child) {
+    margin-bottom: 10px;
+}
+
+.footer-col ul li a {
+    font-size: 16px;
+    text-transform: capitalize;
+    color: #fff;
+    text-decoration: none;
+    font-weight: 300;
+    transition: all 0.3s ease;
+}
+
+.footer-col ul li a:hoover {
+    color: #fff;
+    padding-left: 8px;
+}
+
+.social-links a:hoover {
+    color: #F29F05;
+    background-color: black;
+}
+
+
+/* responsive */
+
+@media(min-width:0px) and (max-width: 574px) {
+    .footer-col {
+        width: 100%;
+    }
+}
+
+@media(min-width:573px) and (max-width: 767px) {
+    .footer-col {
+        width: 50%;
+        margin-bottom: 30px;
+    }
+}

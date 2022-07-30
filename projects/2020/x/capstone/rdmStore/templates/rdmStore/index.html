@@ -1,0 +1,101 @@
+{% extends "rdmStore/layout.html" %} {% block body %}
+
+
+<br>
+<h1 class="display-4">Home</h1>
+<br>
+<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+    <ol class="carousel-indicators">
+        <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+        <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+        <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+    </ol>
+    <div class="carousel-inner">
+        <div class="carousel-item active">
+            <img class="d-block w-100" src="#" alt="Primeiro Slide">
+        </div>
+        <div class="carousel-item">
+            <img class="d-block w-100" src=".../800x400?auto=yes&bg=666&fg=444&text=Segundo Slide" alt="Segundo Slide">
+        </div>
+        <div class="carousel-item">
+            <img class="d-block w-100" src=".../800x400?auto=yes&bg=555&fg=333&text=Terceiro Slide" alt="Terceiro Slide">
+        </div>
+    </div>
+    <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="sr-only">Anterior</span>
+    </a>
+    <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="sr-only">Próximo</span>
+    </a>
+</div>
+<br> {% if items_destaque%}
+<div id="destaques">
+    <h2>Destaques</h2>
+    <div class="row">
+        {% for item_destaque in items_destaque%}
+
+        <div class="col-sm-2">
+            <div class="card border-light mb-3">
+                {% if item_destaque.imagem %}
+                <img class="card-img-top rounded-circle mt-3 mx-auto img-thumbnail" src="{{item_destaque.imagem.url}}" alt="{{item_destaque.nome}}" style="border-radius: 100%;"> {% endif %}
+                <div style="text-align: center;" class="card-body">
+                    <h6 class="card-title">{{item_destaque.nome}}</h6>
+                    <p class="card-text"> <b>R$ {{item_destaque.preco}}</b></p>
+                    <button style="padding: 5%;font: bold 15px arial, sans-serif; background: #F29A2E; color: white; border: 1px solid #F29A2E; border-radius: 5%;" onmouseover="this.style.background='#F28729'" onmouseout="this.style.background='#F29A2E'" href="#">COMPRAR</button>
+                </div>
+            </div>
+        </div>
+
+        {% endfor %}
+    </div>
+
+</div>
+{% endif %}
+<br> {% if items_recentes%}
+<div id="novidades">
+    <h2>Novidades</h2>
+    <div class="row">
+        {% for item_recente in items_recentes%}
+
+        <div class="col-sm-2">
+            <div class="card border-light mb-3">
+                {% if item_recente.imagem %}
+                <img class="card-img-top rounded-circle mt-3 mx-auto img-thumbnail" src="{{item_recente.imagem.url}}" alt="{{item_recente.nome}}" style="border-radius: 100%;"> {% endif %}
+                <div style="text-align: center;" class="card-body">
+                    <h6 class="card-title">{{item_recente.nome}}</h6>
+                    <p class="card-text"> <b>R$ {{item_recente.preco}}</b></p>
+                    <button style="padding: 5%;font: bold 15px arial, sans-serif; background: #F29A2E; color: white; border: 1px solid #F29A2E; border-radius: 5%;" onmouseover="this.style.background='#F28729'" onmouseout="this.style.background='#F29A2E'" href="#">COMPRAR</button>
+                </div>
+            </div>
+        </div>
+
+        {% endfor %}
+    </div>
+
+</div>
+{% endif %}
+<br> {% if items_promocionais%}
+<div id="promocoes">
+    <h2>Promoções</h2>
+    <div class="row">
+        {% for item_promocional in items_promocionais%}
+
+        <div class="col-sm-2">
+            <div class="card border-light mb-3">
+                {% if item_promocional.imagem %}
+                <img class="card-img-top rounded-circle mt-3 mx-auto img-thumbnail" src="{{item_promocional.imagem.url}}" alt="{{item_promocional.nome}}" style="border-radius: 100%;"> {% endif %}
+                <div style="text-align: center;" class="card-body">
+                    <h6 class="card-title">{{item_promocional.nome}}</h6>
+                    <p class="card-text"> <b>R$ {{item_promocional.preco}}</b></p>
+                    <button style="padding: 5%;font: bold 15px arial, sans-serif; background: #F29A2E; color: white; border: 1px solid #F29A2E; border-radius: 5%;" onmouseover="this.style.background='#F28729'" onmouseout="this.style.background='#F29A2E'" href="#">COMPRAR</button>
+                </div>
+            </div>
+        </div>
+
+        {% endfor %}
+    </div>
+
+</div>
+<br> {% endif %} {% endblock %}

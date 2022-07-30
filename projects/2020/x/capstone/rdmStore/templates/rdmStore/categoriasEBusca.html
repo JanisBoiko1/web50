@@ -1,0 +1,25 @@
+{% extends "rdmStore/layout.html" %} {% block body %}
+
+<br> {% if items_categoria%}
+<div id="destaques">
+    <h2>{{categoria_nome}}</h2>
+    <div class="row">
+        {% for item_categoria in items_categoria%}
+
+        <div class="col-sm-2">
+            <div class="card border-light mb-3">
+                {% if item_categoria.imagem %}
+                <img class="card-img-top rounded-circle mt-3 mx-auto img-thumbnail" src="{{item_categoria.imagem.url}}" alt="{{item_categoria.nome}}" style="border-radius: 100%;"> {% endif %}
+                <div style="text-align: center;" class="card-body">
+                    <h6 class="card-title">{{item_categoria.nome}}</h6>
+                    <p class="card-text"> <b>R$ {{item_categoria.preco}}</b></p>
+                    <button style="padding: 5%;font: bold 15px arial, sans-serif; background: #F29A2E; color: white; border: 1px solid #F29A2E; border-radius: 5%;" onmouseover="this.style.background='#F28729'" onmouseout="this.style.background='#F29A2E'" href="#">COMPRAR</button>
+                </div>
+            </div>
+        </div>
+
+        {% endfor %}
+    </div>
+
+</div>
+{% endif %} {% endblock %}
