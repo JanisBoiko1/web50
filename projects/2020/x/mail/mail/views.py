@@ -31,9 +31,9 @@ def compose(request):
     
     # Check recipient emails
     data = json.loads(request.body)
-    print(data)
+    #print(data)
     emails = [email.strip() for email in data.get("recipients").split(",")]
-    print(emails)
+    #print(emails)
     if emails == [""]:
         return JsonResponse({
             "error": "At least one recipient required."
@@ -49,7 +49,7 @@ def compose(request):
             return JsonResponse({
                 "error": f"User with email {email} does not exist."
             }, status=400)
-    print(recipients)
+    #print(recipients)
     
     # Get contents of email
     subject = data.get("subject", "")
