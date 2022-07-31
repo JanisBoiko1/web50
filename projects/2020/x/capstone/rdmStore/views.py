@@ -8,7 +8,7 @@ from django.contrib import messages
 from django.shortcuts import get_object_or_404
 
 from .models import User, Item, Categoria
-
+from . forms import ItemSearchForm
 
 # Create your views here.
 
@@ -16,7 +16,8 @@ from .models import User, Item, Categoria
 def index(request):
     #select categorias
     categorias = Categoria.objects.all()
-    print(categorias)
+    #get form
+    form = ItemSearchForm(request.POST or None)
         
     #select destaques
     items_destaque = Item.objects.filter(destaque=True)
@@ -33,6 +34,7 @@ def index(request):
         "items_recentes": items_recentes, 
         "items_promocionais": items_promocionais,
         "categorias": categorias,
+        "form": form,
     })
 
 
@@ -42,6 +44,8 @@ def new(request):
 def login_view(request):
     #select categorias
     categorias = Categoria.objects.all()
+    #get form
+    form = ItemSearchForm(request.POST or None)
     
     if request.method == "POST":
 
@@ -58,10 +62,12 @@ def login_view(request):
             return render(request, "rdmStore/login.html", {
                 "message": "Invalid username and/or password.",
                 "categorias": categorias,
+                "form": form,
             })
     else:
         return render(request, "rdmStore/login.html", {
             "categorias": categorias,
+            "form": form,
         })
 
 
@@ -73,6 +79,8 @@ def logout_view(request):
 def register(request):
     #select categorias
     categorias = Categoria.objects.all()
+    #get form
+    form = ItemSearchForm(request.POST or None)
     
     if request.method == "POST":
         username = request.POST["username"]
@@ -85,6 +93,7 @@ def register(request):
             return render(request, "rdmStore/register.html", {
                 "message": "Passwords must match.",
                 "categorias": categorias,
+                "form": form,
             })
 
         # Attempt to create new user
@@ -95,12 +104,14 @@ def register(request):
             return render(request, "rdmStore/register.html", {
                 "message": "Username already taken.",
                 "categorias": categorias,
+                "form": form,
             })
         login(request, user)
         return HttpResponseRedirect(reverse("index"))
     else:
         return render(request, "rdmStore/register.html", {
             "categorias": categorias,
+            "form": form,
         })
 
 #barrinha de pesquisa
@@ -109,6 +120,8 @@ def selecao(request, elemento):
     
     #select categorias
     categorias = Categoria.objects.all()
+    #get form
+    form = ItemSearchForm(request.POST or None)
     
     nome_categoria =""
     items_categoria = []
@@ -138,9 +151,27 @@ def selecao(request, elemento):
         "categorias": categorias,
         "items_categoria": items_categoria,
         "categoria_nome" : nome_categoria,
+        "form": form,
     })
 
-
+#search bar mecanics
+def pesquisar(request):
+    
+    #get form
+    form = ItemSearchForm(request.POST or None)
+        
+    if request.method == "POST":
+        #get data from form
+        if form.is_valid():     
+            
+            #check if there is any input
+            nome = form.cleaned_data.get("nome")
+            if not nome:
+                messages.error(request, "O que você está procurando?")
+            
+                #if so redirect to selection with nome as parameter
+            return HttpResponseRedirect(reverse("selecao", args=(nome,)))
+            
 #itens-mostrar
 
 #itens-editar

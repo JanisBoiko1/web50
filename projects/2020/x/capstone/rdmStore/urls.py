@@ -11,4 +11,5 @@ urlpatterns = [
     path("register", views.register, name="register"),
     path("new", views.new, name="new"),
     path("selecao/<str:elemento>", views.selecao, name="selecao"),
+    path("pesquisar", views.pesquisar, name="pesquisar")
 ]

@@ -52,7 +52,11 @@ nav {
     font: bold 15px arial, sans-serif;
     text-shadow: none;
 }
-
+.sidebar-nav {
+    background-color: #fff;
+    color: black;
+    font-weight: normal;
+}
 
 /* https://www.youtube.com/watch?v=YOb67OKw62s */
 
@@ -121,3 +125,4 @@ nav {
         margin-bottom: 30px;
     }
 }
+

@@ -17,8 +17,6 @@
     <!---->
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
 
-    <!-- from -->
-    <script src="lib.js"></script>
 </head>
 
 <body>
@@ -33,9 +31,10 @@
                         </div>
                         <div class="col-6">
                             <li>
-                                <form class="form-inline">
-                                    <input class="form-control mr-sm-2" type="search" placeholder="Search" id="search-form" aria-label="Search">
-                                    <button class="btn btn-outline-warning my-2 my-sm-0" id="search-btn" type="submit">Search</button>
+                                <form class="form-inline" action="{% url 'pesquisar' %}" method="post">
+                                    {% csrf_token %}
+                                    {{form}}
+                                    <button class="btn btn-outline-warning my-2 my-sm-0" type="submit">Buscar</button>
                                 </form>
                             </li>
                         </div>
@@ -152,7 +151,7 @@
         </div>
 
     </footer>
-    <script src="{% static 'rdmStore/search.js' %}"></script>
+    <script src="{% static 'rdmStore/index.js' %}"></script>
 </body>
 
 

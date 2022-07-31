@@ -1,0 +1,12 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\rdmStore",
+    "\\rdmStore\\static",
+    "\\rdmStore\\static\\rdmStore",
+    "\\rdmStore\\templates",
+    "\\rdmStore\\templates\\rdmStore"
+  ],
+  "SelectedNode": "\\rdmStore\\templates\\rdmStore\\layout.html",
+  "PreviewInSolutionExplorer": false
+}
