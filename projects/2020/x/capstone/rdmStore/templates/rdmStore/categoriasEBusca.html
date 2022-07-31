@@ -6,7 +6,8 @@
 <div class="offcanvas offcanvas-start" data-bs-backdrop="static" tabindex="-1" id="sidebar-div" aria-labelledby="staticBackdropLabel">
     <div class="offcanvas-body">
         <nav class="sidebar-nav">
-            <div class="col-1">
+            <div class="row">
+                <div class="col-2">
 
                     <ul style="list-style-type: none; padding: 0;margin: 0;">
                         <li class="nav-item dropdown">
@@ -22,12 +23,11 @@
 
                         </li>
                     </ul>
-                
-            </div>
-        </nav>
-        <nav class="sidebar-nav">
-            <div class="col-1">
-                
+
+                </div>
+
+                <div class="col-2">
+
                     <ul style="list-style-type: none; padding: 0;margin: 0;">
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Cores</a>
@@ -42,71 +42,68 @@
 
                         </li>
                     </ul>
-                
+
+                </div>
+
+                <div class="col-2">
+
+                    <ul style="list-style-type: none; padding: 0;margin: 0;">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Tipos</a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <!-- iterate through the categories and link them -->
+                                <ul class="nav-item">
+
+                                    <li style="list-style-type: none;"><a class="dropdown-item" href="#"></a></li>
+
+                                </ul>
+                            </div>
+
+                        </li>
+                    </ul>
+
+                </div>
+
+                <div class="col-2">
+
+                    <ul style="list-style-type: none; padding: 0;margin: 0;">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Categorias</a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <!-- iterate through the categories and link them -->
+                                <ul class="nav-item">
+
+                                    <li style="list-style-type: none;"><a class="dropdown-item" href="#"></a></li>
+
+                                </ul>
+                            </div>
+
+                        </li>
+                    </ul>
+
+                </div>
+
+                <div class="col-2">
+
+                    <ul style="list-style-type: none; padding: 0;margin: 0;">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">$</a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <!-- iterate through the categories and link them -->
+                                <ul class="nav-item">
+
+                                    <li style="list-style-type: none;"><a class="dropdown-item" href="#"></a></li>
+
+                                </ul>
+                            </div>
+
+                        </li>
+                    </ul>
+
+                </div>
             </div>
-        </nav>
+    </nav>
     </div>
-    <nav class="sidebar-nav">
-        <div class="col-1">
-            
-                <ul style="list-style-type: none; padding: 0;margin: 0;">
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Tipos</a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <!-- iterate through the categories and link them -->
-                            <ul class="nav-item">
-
-                                <li style="list-style-type: none;"><a class="dropdown-item" href="#"></a></li>
-
-                            </ul>
-                        </div>
-
-                    </li>
-                </ul>
-            
-        </div>
-    </nav>
-    <nav class="sidebar-nav">
-        <div class="col-1">
-            
-                <ul style="list-style-type: none; padding: 0;margin: 0;">
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Categorias</a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <!-- iterate through the categories and link them -->
-                            <ul class="nav-item">
-
-                                <li style="list-style-type: none;"><a class="dropdown-item" href="#"></a></li>
-
-                            </ul>
-                        </div>
-
-                    </li>
-                </ul>
-            
-        </div>
-    </nav>
-    <nav class="sidebar-nav">
-        <div class="col-1">
-            
-                <ul style="list-style-type: none; padding: 0;margin: 0;">
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">$</a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <!-- iterate through the categories and link them -->
-                            <ul class="nav-item">
-
-                                <li style="list-style-type: none;"><a class="dropdown-item" href="#"></a></li>
-
-                            </ul>
-                        </div>
-
-                    </li>
-                </ul>
-            
-        </div>
-    </nav>
-    
 </div>
 
 <br> {% if items_categoria%}
