@@ -110,6 +110,8 @@ def selecao(request, elemento):
     #select categorias
     categorias = Categoria.objects.all()
     
+    nome_categoria =""
+    items_categoria = []
     
     for categoria in categorias:
         if str(categoria) == (elemento + "."):
@@ -117,7 +119,20 @@ def selecao(request, elemento):
             # print(items_categoria)
             nome_categoria = elemento
     
-    #busca       
+    #search
+    #check if parameter element is similar to name, description or size (Item.nome, .descricao and . tamanho)
+    if nome_categoria == "":
+         #get all items
+         items_all = Item.objects.all()
+         
+         #iterate through them and compare strings
+         for items in items_all:
+             
+             if((elemento.upper() in items.nome.upper()) or (elemento.upper() in items.descricao.upper()) or (elemento.upper() in items.tamanho.upper())):
+                 #if similar, filter by id and add to variable items_categoria
+                 items_categoria += Item.objects.filter(id = items.id)
+         
+         
 
     return render(request, "rdmStore/categoriasEBusca.html",{
         "categorias": categorias,
