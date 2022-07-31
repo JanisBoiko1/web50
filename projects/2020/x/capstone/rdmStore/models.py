@@ -40,8 +40,21 @@ class Item(models.Model):
     timestanp = models.DateTimeField(auto_now_add=True, auto_now=False)
     watchers = models.ManyToManyField(User,  default=[0], null=True, related_name="watchedListing")
     
-    def __str__ (self):
-        return f"{self.nome}: {self.descricao}. {self.tipo}, {self.tamanho} por {self.preco}."
+    def serialize(self):
+        return {
+            "nome": self.nome,
+            "descricao": self.descricao,
+            "preco": self.preco,
+            "tamanho":self.tamanho,
+            "imagem": self.imagem,
+            "user":self.user.id,
+            "item_categoria": self.item_categoria,
+            "promocao": self.promocao,
+            "disponivel": self.disponivel,
+            "destaque": self.destaque,
+            "timestamp": self.timestamp.strftime("%b %d %Y, %I:%M %p"),
+            "watchers": [user.username for user in self.watchers.all()],
+        }
     
 class Compras(models.Model):
     total = models.DecimalField(max_digits=6, decimal_places=2)
